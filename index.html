@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Proyecto Educativo — Tipos de Aprendizaje y TEA (Con Formulario)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --max-width:1200px;
+  --bg:#f3f8ff;
+  --blue-900:#05264a;
+  --blue-700:#0b5ed7;
+  --blue-600:#1971f3;
+  --accent:#60a5fa;
+  --muted:#556070;
+  --card:#ffffff;
+  --radius:12px;
+  --shadow:0 12px 36px rgba(11,78,215,0.06);
+  --success:#16a34a;
+  --danger:#e11d48;
+}
+*{box-sizing:border-box}
+html{font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif; font-size:16px}
+body{margin:0;background:linear-gradient(180deg,var(--bg),#ffffff);color:var(--blue-900);padding:28px;-webkit-font-smoothing:antialiased}
+.container{max-width:var(--max-width);margin:0 auto}
+
+/* Header */
+.header{background:linear-gradient(180deg,var(--blue-700),var(--blue-600));color:#fff;border-radius:14px;padding:18px;box-shadow:var(--shadow)}
+.header .inner{display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.brand{display:flex;gap:14px;align-items:center}
+.logo{width:64px;height:64px;border-radius:12px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:20px}
+.header nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.header nav a{color:#fff;text-decoration:none;font-weight:600;padding:8px 12px;border-radius:10px}
+.header nav a:hover{background:rgba(255,255,255,0.06)}
+
+/* Hero */
+.hero{margin-top:18px;border-radius:12px;overflow:hidden;background:var(--card);box-shadow:0 12px 36px rgba(2,6,23,0.06);display:flex;gap:18px;align-items:stretch}
+.hero .cover{width:520px;height:320px;overflow:hidden;border-radius:12px 0 0 12px;flex-shrink:0;position:relative}
+.hero .cover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s ease}
+.hero .cover:hover img{transform:scale(1.03)}
+.hero .summary{padding:22px;flex:1;display:flex;flex-direction:column;justify-content:center}
+.hero h1{margin:0;color:var(--blue-700);font-size:1.9rem}
+.hero p{margin-top:8px;color:var(--muted);line-height:1.5}
+
+/* Layout */
+.layout{display:grid;grid-template-columns:1fr 360px;gap:20px;margin-top:20px;align-items:start}
+@media(max-width:1100px){.layout{grid-template-columns:1fr}.hero{flex-direction:column}.hero .cover{width:100%;height:260px;border-radius:12px 12px 0 0}}
+.card{background:var(--card);padding:18px;border-radius:12px;border:1px solid rgba(2,6,23,0.04);box-shadow:0 8px 24px rgba(2,6,23,0.04);animation:fadeIn .45s ease both}
+.card h2{margin:0 0 10px 0;color:var(--blue-700)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.type{padding:12px;border-radius:10px;border:1px solid rgba(11,78,215,0.06);background:linear-gradient(180deg,#ffffff,#fbfdff)}
+.type h3{margin:0 0 8px 0;color:var(--blue-700)}
+.type p{margin:0 0 8px 0;color:var(--muted)}
+.strategy{background:linear-gradient(180deg,#f8fbff,#ffffff);padding:10px;border-radius:8px;border:1px solid rgba(11,78,215,0.04);font-size:.95rem;color:var(--blue-900)}
+.section-block{margin-top:14px;padding:14px;border-radius:10px;background:linear-gradient(180deg,rgba(11,78,215,0.03),rgba(11,78,215,0.01));border:1px solid rgba(11,78,215,0.04)}
+.small{font-size:13px;color:var(--muted)}
+
+/* Images & gallery */
+.img-grid{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
+.img-grid img{width:calc(50% - 6px);height:180px;object-fit:cover;border-radius:10px;border:1px solid rgba(0,0,0,0.05);box-shadow:0 8px 20px rgba(2,6,23,0.04);transition:transform .35s}
+.img-grid img:hover{transform:translateY(-6px)}
+
+/* Animated decorative shapes */
+.decor-shape{position:absolute;border-radius:50%;opacity:.12;filter:blur(12px)}
+.shape-a{width:160px;height:160px;background:linear-gradient(90deg,#60a5fa,#0f62fe);right:-40px;top:-40px}
+.shape-b{width:120px;height:120px;background:linear-gradient(90deg,#a5b4fc,#60a5fa);left:-30px;bottom:-30px}
+
+/* Videos grid */
+.videos-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}
+@media(max-width:1100px){.videos-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:720px){.videos-grid{grid-template-columns:1fr}}
+.yt-card{border-radius:10px;overflow:hidden;border:1px solid rgba(0,0,0,0.06);background:#000;transition:transform .25s}
+.yt-card:hover{transform:translateY(-6px)}
+.yt-card img{width:100%;height:160px;object-fit:cover;display:block}
+.yt-card .meta{padding:10px;background:#fff}
+.yt-card .meta h4{margin:0;color:var(--blue-700)}
+.yt-card .meta p{margin:6px 0 0;color:var(--muted);font-size:13px}
+
+/* Support link cards with thumbnail */
+.link-card{display:flex;gap:12px;align-items:center;padding:10px;border-radius:10px;border:1px solid rgba(11,78,215,0.06);background:#fff;margin-bottom:10px;text-decoration:none;color:inherit}
+.link-card img{width:72px;height:72px;object-fit:cover;border-radius:8px;border:1px solid rgba(0,0,0,0.04)}
+.link-card .link-meta{display:flex;flex-direction:column}
+.link-card .link-meta strong{color:var(--blue-700);font-size:14px;margin-bottom:6px}
+.link-card .link-meta span{color:var(--muted);font-size:13px}
+
+/* Form (layout inspired by provided layout) */
+.form-card{margin-top:14px}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(max-width:900px){.form-grid{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:6px}
+label{font-weight:700;color:var(--blue-700);font-size:14px}
+input[type="text"],input[type="email"],input[type="number"],select,textarea,input[type="date"]{
+  padding:10px;border-radius:8px;border:1px solid rgba(2,6,23,0.06);background:#fff;font-size:14px;color:var(--blue-900)
+}
+textarea{min-height:90px;resize:vertical}
+.form-actions{display:flex;gap:12px;align-items:center;margin-top:12px}
+.btn{background:var(--blue-700);color:#fff;padding:10px 14px;border-radius:10px;border:none;font-weight:700;cursor:pointer}
+.btn.secondary{background:#fff;color:var(--blue-700);border:1px solid rgba(11,78,215,0.08)}
+.note{font-size:13px;color:var(--muted)}
+
+/* Quiz */
+.quiz{display:flex;flex-direction:column;gap:10px}
+.result{margin-top:8px;padding:12px;border-radius:10px;background:#eef9ff;border:1px solid rgba(11,78,215,0.08);color:var(--blue-700)}
+.trophy{display:flex;align-items:center;gap:12px;margin-top:12px}
+.trophy svg{width:72px;height:72px;fill:var(--success);transform:scale(.6);opacity:0;transition:transform .45s ease,opacity .45s ease}
+.trophy.show svg{transform:scale(1);opacity:1;animation:pop .6s ease both}
+@keyframes pop{0%{transform:scale(.6)}50%{transform:scale(1.12)}100%{transform:scale(1)}}
+
+/* Confetti simple */
+.confetti { position:relative; height:0; overflow:visible; }
+.confetti span{position:absolute;width:10px;height:16px;border-radius:2px;opacity:0;animation:confetti-fall 1.6s linear forwards}
+@keyframes confetti-fall{0%{transform:translateY(-10px) rotate(0deg);opacity:1}100%{transform:translateY(220px) rotate(360deg);opacity:0}}
+
+/* Aside */
+.links a{display:block;color:var(--blue-700);text-decoration:none;margin-bottom:8px;font-weight:600}
+.links a:hover{text-decoration:underline}
+
+/* Footer & badge */
+.footer{text-align:center;color:var(--muted);font-size:14px;padding:12px;margin-top:20px}
+.badge{position:fixed;right:18px;bottom:18px;background:linear-gradient(135deg,var(--blue-700),var(--blue-600));color:#fff;padding:12px 14px;border-radius:12px;font-weight:700}
+
+/* Animations */
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <header class="header" role="banner" aria-label="Encabezado principal">
+    <div class="inner">
+      <div class="brand">
+        <div class="logo">PE</div>
+        <div>
+          <div style="font-weight:800;font-size:18px">Proyecto Educativo</div>
+          <div class="small">Hernandez Martinez Mercedes • Martinez Ramirez Diego Alejandro — 5AM PG</div>
+        </div>
+      </div>
+      <nav aria-label="Navegación principal">
+        <a href="#introduccion">Introducción</a>
+        <a href="#tipos">Aprendizaje</a>
+        <a href="#autismos">Autismos</a>
+        <a href="#consideraciones">Consideraciones</a>
+        <a href="#evaluacion">Evaluación</a>
+        <a href="#videos">Videos</a>
+        <a href="#apoyo">Apoyo</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="cover" role="img" aria-label="Imagen de portada">
+      <img src="https://mexico.unir.net/wp-content/uploads/sites/6/2022/01/colegio_id511537348.jpg" alt="Portada educativa">
+      <div class="decor-shape shape-a" aria-hidden="true"></div>
+      <div class="decor-shape shape-b" aria-hidden="true"></div>
+    </div>
+    <div class="summary">
+      <h1 id="hero-title">Tipos de Aprendizaje y Trastorno del Espectro Autista (TEA)</h1>
+      <p>Comprender cómo aprenden las personas y reconocer la diversidad del espectro autista permite diseñar experiencias educativas más inclusivas y efectivas. Aquí encontrarás definiciones, estrategias, áreas de acción, recursos y una evaluación interactiva.</p>
+    </div>
+  </section>
+
+  <!-- Layout -->
+  <div class="layout" role="main">
+
+    <!-- Main column -->
+    <div>
+
+      <!-- Introducción -->
+      <article id="introduccion" class="card" aria-labelledby="intro-title">
+        <h2 id="intro-title">Introducción</h2>
+        <p>Los tipos de aprendizaje describen preferencias y procesos para adquirir, organizar y recuperar información. Considerarlos (visual, auditivo, lectura/escritura, kinestésico, social, intrapersonal y observacional) ayuda a diversificar la enseñanza y a favorecer la equidad. Integrar estas vías con una mirada inclusiva del TEA fortalece el diseño universal para el aprendizaje y la participación de toda la comunidad escolar.</p>
+        <div class="section-block">
+          <h4>Propósito del proyecto</h4>
+          <p class="small">Ofrecer un recurso amplio y referenciado para presentar en proyectos: definiciones, estrategias docentes, adaptaciones para TEA, criterios de evaluación y recursos de apoyo.</p>
+        </div>
+      </article>
+
+      <!-- Tipos de aprendizaje -->
+      <article id="tipos" class="card" style="margin-top:14px">
+        <h2>Tipos de aprendizaje</h2>
+        <div class="grid" style="margin-top:12px">
+          <div class="type"><h3>Visual</h3><p>Procesa con imágenes, diagramas y mapas.</p><div class="strategy"><strong>Estrategias:</strong> infografías, mapas conceptuales, esquemas de flujo y color por categorías.</div></div>
+          <div class="type"><h3>Auditivo</h3><p>Aprende por escucha y diálogo.</p><div class="strategy"><strong>Estrategias:</strong> debates estructurados, micro-podcasts, resúmenes orales y preguntas guía.</div></div>
+          <div class="type"><h3>Lectura / Escritura</h3><p>Prefiere textos, notas y síntesis.</p><div class="strategy"><strong>Estrategias:</strong> guías de lectura, fichas, listas de verificación y rúbricas escritas.</div></div>
+          <div class="type"><h3>Kinestésico</h3><p>Aprende haciendo y experimentando.</p><div class="strategy"><strong>Estrategias:</strong> laboratorios, simulaciones, role-play y proyectos prácticos.</div></div>
+          <div class="type"><h3>Social (Colaborativo)</h3><p>Aprendizaje en interacción con otros.</p><div class="strategy"><strong>Estrategias:</strong> proyectos en equipo, coevaluación y aprendizaje entre pares.</div></div>
+          <div class="type"><h3>Intrapersonal</h3><p>Autorreflexión y autorregulación.</p><div class="strategy"><strong>Estrategias:</strong> diarios de aprendizaje, metas SMART y autoevaluaciones guiadas.</div></div>
+          <div class="type"><h3>Observacional / Experiencial</h3><p>Modelado y práctica supervisada.</p><div class="strategy"><strong>Estrategias:</strong> demostraciones, mentorías y análisis de casos.</div></div>
+        </div>
+      </article>
+
+      <!-- Tipos de Autismos -->
+      <article id="autismos" class="card" style="margin-top:14px">
+        <h2>Tipos de Autismos (TEA)</h2>
+        <img src="https://www.synlab-sd.com/wp-content/uploads/2024/08/SYNLAB_Blog-Autismo_IMG-INTERNA_INFOGRAFICO_espanhol.jpg" alt="Infografía TEA" style="width:100%;border-radius:12px;margin:12px 0;border:1px solid rgba(0,0,0,0.06);box-shadow:0 8px 22px rgba(0,0,0,0.04)">
+        <p>El Trastorno del Espectro Autista (TEA) se concibe como un espectro con distintos niveles de apoyo. A continuación se describen categorías divulgativas y recomendaciones pedagógicas.</p>
+        <div class="grid" style="margin-top:12px">
+          <div class="type"><h3>Autismo clásico</h3><p>Dificultades en comunicación, interacción social y conductas repetitivas.</p><div class="strategy"><strong>Apoyos:</strong> intervención temprana, terapias de lenguaje y apoyos visuales.</div></div>
+          <div class="type"><h3>Síndrome de Asperger</h3><p>Lenguaje conservado; retos sociales e intereses restringidos.</p><div class="strategy"><strong>Apoyos:</strong> entrenamiento en habilidades sociales y acompañamiento escolar.</div></div>
+          <div class="type"><h3>Alto funcionamiento</h3><p>Independencia en muchas áreas; apoyo en interacción y regulación.</p><div class="strategy"><strong>Apoyos:</strong> mentorías y prácticas estructuradas.</div></div>
+          <div class="type"><h3>Atípico</h3><p>Características parciales del espectro o inicio tardío.</p><div class="strategy"><strong>Apoyos:</strong> evaluación continua y adaptaciones flexibles.</div></div>
+        </div>
+
+        <!-- Recursos y páginas de apoyo (miniaturas) -->
+        <div class="section-block" style="margin-top:14px">
+          <h4>Recursos y páginas de apoyo (debajo del apartado Autismos)</h4>
+          <p class="small">Enlaces con miniatura (favicon) para consulta y referencia dentro del proyecto.</p>
+
+          <a class="link-card" href="https://pilartea.org/que-es-el-autismo/" target="_blank" rel="noopener">
+            <img src="https://www.google.com/s2/favicons?domain=pilartea.org" alt="PilarTEA">
+            <div class="link-meta">
+              <strong>PilarTEA — ¿Qué es el autismo?</strong>
+              <span>Explicación introductoria y recursos para docentes y familias.</span>
+            </div>
+          </a>
+
+          <a class="link-card" href="https://centromedicoabc.com/revista-digital/consejos-para-padres-de-un-nino-con-autismo/" target="_blank" rel="noopener">
+            <img src="https://www.google.com/s2/favicons?domain=centromedicoabc.com" alt="Centro Médico ABC">
+            <div class="link-meta">
+              <strong>Centro Médico ABC — Consejos para padres</strong>
+              <span>Recomendaciones prácticas para el acompañamiento familiar.</span>
+            </div>
+          </a>
+
+          <a class="link-card" href="https://www.gaceta.unam.mx/ninos-autistas-ven-el-mundo-de-manera-diferente/" target="_blank" rel="noopener">
+            <img src="https://www.google.com/s2/favicons?domain=gaceta.unam.mx" alt="Gaceta UNAM">
+            <div class="link-meta">
+              <strong>Gaceta UNAM — Niños autistas ven el mundo de manera diferente</strong>
+              <span>Artículo divulgativo sobre percepciones y experiencias sensoriales.</span>
+            </div>
+          </a>
+        </div>
+      </article>
+
+      <!-- Formulario de 10 campos -->
+      <article class="card form-card" style="margin-top:14px">
+        <h2>Formulario de registro (10 campos)</h2>
+        <p class="small">Completa los campos para registrar información básica. Los datos se guardan localmente en tu navegador.</p>
+
+        <form id="registro-form" class="form-grid" autocomplete="off" novalidate>
+          <div class="field">
+            <label for="f_nombre">1. Nombre completo</label>
+            <input id="f_nombre" name="nombre" type="text" placeholder="Ej. Ana Pérez" required>
+          </div>
+
+          <div class="field">
+            <label for="f_email">2. Correo electrónico</label>
+            <input id="f_email" name="email" type="email" placeholder="ejemplo@dominio.com" required>
+          </div>
+
+          <div class="field">
+            <label for="f_rol">3. Rol</label>
+            <select id="f_rol" name="rol" required>
+              <option value="">Selecciona</option>
+              <option value="Estudiante">Estudiante</option>
+              <option value="Docente">Docente</option>
+              <option value="Familiar">Familiar</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="f_edad">4. Edad</label>
+            <input id="f_edad" name="edad" type="number" min="1" max="120" placeholder="Edad" required>
+          </div>
+
+          <div class="field">
+            <label for="f_grado">5. Grado / Nivel</label>
+            <input id="f_grado" name="grado" type="text" placeholder="Ej. 3° primaria / Secundaria" required>
+          </div>
+
+          <div class="field">
+            <label for="f_escuela">6. Centro educativo / Escuela</label>
+            <input id="f_escuela" name="escuela" type="text" placeholder="Nombre de la escuela (opcional)">
+          </div>
+
+          <div class="field">
+            <label for="f_estilo">7. Preferencia de aprendizaje</label>
+            <select id="f_estilo" name="estilo" required>
+              <option value="">Selecciona</option>
+              <option value="Visual">Visual</option>
+              <option value="Auditivo">Auditivo</option>
+              <option value="Lectura/Escritura">Lectura/Escritura</option>
+              <option value="Kinestésico">Kinestésico</option>
+              <option value="Mixto">Mixto</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="f_diagnostico">8. ¿Existe diagnóstico previo relacionado con TEA?</label>
+            <select id="f_diagnostico" name="diagnostico" required>
+              <option value="">Selecciona</option>
+              <option value="Sí">Sí</option>
+              <option value="No">No</option>
+              <option value="En evaluación">En evaluación</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="f_apoyos">9. Apoyos o adaptaciones requeridas</label>
+            <input id="f_apoyos" name="apoyos" type="text" placeholder="Ej. Horario visual, pausas, auriculares">
+          </div>
+
+          <div class="field" style="grid-column:1 / -1">
+            <label for="f_observaciones">10. Observaciones o necesidades específicas</label>
+            <textarea id="f_observaciones" name="observaciones" placeholder="Describe brevemente comportamientos, rutinas o necesidades" required></textarea>
+          </div>
+
+          <div class="field" style="grid-column:1 / -1">
+            <label><input id="f_consent" name="consent" type="checkbox" required> Confirmo que la información es verídica y autorizo su uso interno para fines educativos (guardado local).</label>
+          </div>
+
+          <div class="form-actions" style="grid-column:1 / -1">
+            <button type="submit" class="btn">Guardar registro</button>
+            <button type="button" id="f_reset" class="btn secondary">Limpiar formulario</button>
+            <div id="f_msg" class="note" style="margin-left:auto"></div>
+          </div>
+        </form>
+      </article>
+
+      <!-- Propuesta destacada (añadida) -->
+      <article id="propuesta" class="card" style="margin-top:14px">
+        <h2>Propuesta destacada</h2>
+        <div class="section-block">
+          <h3>⭐ Integrar los Tipos de Aprendizaje para Fortalecer la Unión entre los Alumnos</h3>
+          <h4>Objetivo</h4>
+          <p>Promover la convivencia, el respeto y la colaboración mediante actividades que tomen en cuenta los tipos de aprendizaje: visual, auditivo y kinestésico.</p>
+
+          <h4>Actividad ejemplo: “Construyamos nuestra aula ideal”</h4>
+          <ul class="small" style="line-height:1.6">
+            <li>Los visuales diseñan el plano.</li>
+            <li>Los auditivos explican y organizan las ideas.</li>
+            <li>Los kinestésicos construyen una maqueta con materiales simples.</li>
+            <li>Todos colaboran para presentar un solo proyecto.</li>
+          </ul>
+
+          <h4>Adaptaciones para estudiantes con TEA</h4>
+          <ul class="small" style="line-height:1.6">
+            <li>Roles claros y tiempos definidos; apoyos visuales para cada paso.</li>
+            <li>Opciones de participación (presentación oral, póster, video corto).</li>
+            <li>Rúbrica descriptiva que valore proceso y colaboración.</li>
+          </ul>
+
+          <h4>Resultados esperados</h4>
+          <ul class="small" style="line-height:1.6">
+            <li>Mayor integración y pertenencia.</li>
+            <li>Respeto por diferencias individuales.</li>
+            <li>Trabajo en equipo más efectivo y participativo.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Videos y miniaturas (Tipos de Aprendizaje) -->
+      <article id="videos" class="card" style="margin-top:14px">
+        <h2>Videos y miniaturas (Tipos de Aprendizaje)</h2>
+        <p class="small">Selección para ampliar comprensión y estrategias; cada tarjeta enlaza al video original.</p>
+
+        <div class="videos-grid" role="list">
+          <a class="yt-card" href="https://youtu.be/SD5O4_ZZJfA" target="_blank" rel="noopener">
+            <img src="https://img.youtube.com/vi/SD5O4_ZZJfA/hqdefault.jpg" alt="Estilos y estrategias">
+            <div class="meta"><h4>Estilos y estrategias</h4><p class="small">Explicación práctica sobre estilos.</p></div>
+          </a>
+
+          <a class="yt-card" href="https://youtu.be/DQEiK0_NwYE" target="_blank" rel="noopener">
+            <img src="https://img.youtube.com/vi/DQEiK0_NwYE/hqdefault.jpg" alt="Estrategias para aula">
+            <div class="meta"><h4>Estrategias para aula</h4><p class="small">Actividades aplicables.</p></div>
+          </a>
+
+          <a class="yt-card" href="https://youtu.be/N0O92bj6Gas" target="_blank" rel="noopener">
+            <img src="https://img.youtube.com/vi/N0O92bj6Gas/hqdefault.jpg" alt="Modelos y evidencia">
+            <div class="meta"><h4>Modelos y evidencia</h4><p class="small">Ejemplos y análisis.</p></div>
+          </a>
+        </div>
+      </article>
+
+      <!-- Consideraciones -->
+      <article id="consideraciones" class="card" style="margin-top:14px" aria-labelledby="consideraciones-title">
+        <h2 id="consideraciones-title">Consideraciones</h2>
+        <div class="section-block" style="margin-top:8px">
+          <h4>¿Por qué considerar los tipos de aprendizaje si no hay evidencia de “estilos” rígidos?</h4>
+          <p>Porque ofrecer múltiples vías de acceso y expresión aumenta la probabilidad de que cada estudiante encuentre una forma efectiva de comprender y demostrar lo aprendido; el objetivo es la diversidad de métodos, no encasillar.</p>
+        </div>
+        <div class="section-block" style="margin-top:8px">
+          <h4>¿Cómo adaptar una evaluación para un estudiante con TEA?</h4>
+          <p>Ofrecer opciones de respuesta (oral, escrita, visual), tiempos adicionales, instrucciones claras y apoyos visuales; usar rúbricas descriptivas para evaluar el proceso y no solo el producto.</p>
+        </div>
+        <div class="section-block" style="margin-top:8px">
+          <h4>¿Qué hacer si un estudiante se sobreestimula en clase?</h4>
+          <p>Tener una zona de calma disponible, permitir pausas cortas, ofrecer auriculares o materiales sensoriales y comunicar de forma breve y clara los pasos a seguir.</p>
+        </div>
+        <div class="section-block" style="margin-top:8px">
+          <h4>¿Cómo involucrar a las familias sin sobrecargarlas?</h4>
+          <p>Compartir información breve y práctica, ofrecer ejemplos de actividades en casa de 10–15 minutos y mantener comunicación positiva sobre avances concretos.</p>
+        </div>
+      </article>
+
+      <!-- Evaluación breve (quiz) -->
+      <article id="evaluacion" class="card" style="margin-top:14px">
+        <h2>Evaluación breve (3 preguntas)</h2>
+        <p class="small">Responde las 3 preguntas; si aciertas todas verás un trofeo y una animación de celebración.</p>
+        <form id="quiz" class="quiz" aria-label="Evaluación breve">
+          <div>
+            <label for="q1">1) ¿Cuál de estos es un tipo de aprendizaje?</label>
+            <select id="q1" required>
+              <option value="">Selecciona</option>
+              <option value="Visual">Visual</option>
+              <option value="Tecnológico">Tecnológico</option>
+              <option value="Aleatorio">Aleatorio</option>
+            </select>
+          </div>
+          <div>
+            <label>2) Señala una estrategia kinestésica</label>
+            <div><label><input type="radio" name="q2" value="Role-play" required> Role‑play</label></div>
+            <div><label><input type="radio" name="q2" value="Lectura"> Lectura silenciosa</label></div>
+            <div><label><input type="radio" name="q2" value="Mapa"> Mapa conceptual</label></div>
+          </div>
+          <div>
+            <label for="q3">3) El TEA se describe mejor como:</label>
+            <select id="q3" required>
+              <option value="">Selecciona</option>
+              <option value="Espectro">Un espectro</option>
+              <option value="Subtipos">Subtipos rígidos</option>
+            </select>
+          </div>
+          <button type="submit" class="btn">Comprobar</button>
+        </form>
+
+        <div id="quiz-result" class="result" role="status" aria-live="polite" style="display:none"></div>
+        <div id="trophy-wrap" class="trophy" aria-hidden="true" style="display:none">
+          <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M48 8H16v6a12 12 0 0 0 8 11.3V30a14 14 0 0 0 12 13.9V48h-6v6h10v-6h-6v-4.1A14 14 0 0 0 48 30v-4.7A12 12 0 0 0 56 14V8z" />
+          </svg>
+          <div>
+            <strong style="color:var(--success)">¡Perfecto!</strong>
+            <div class="small">Has respondido correctamente. Trofeo ganado.</div>
+          </div>
+        </div>
+        <div id="confetti" class="confetti" aria-hidden="true"></div>
+      </article>
+
+      <!-- Galería y recursos visuales -->
+      <article class="card" style="margin-top:14px">
+        <h2>Galería y recursos visuales</h2>
+        <p class="small">Imágenes, ilustraciones y elementos animados para enriquecer la presentación.</p>
+        <div class="img-grid" style="margin-top:10px">
+          <img src="https://educa3-0.b-cdn.net/wp-content/uploads/2018/06/Estilos-aprendizaje2-1024x533.jpg" alt="Estilos de aprendizaje">
+          <img src="https://mexico.unir.net/wp-content/uploads/sites/6/2022/01/colegio_id511537348.jpg" alt="Colegio - portada">
+          <img src="https://elnacionalperiodico.mx/wp-content/uploads/2023/11/image-portada-autismo-web_1-4431318_20230105221002.jpg" alt="Portada autismo - El Nacional">
+          <img src="https://cdn.eldestapeweb.com/eldestape/082025/1756237367545.webp?cw=400&ch=225" alt="Imagen autismo - El Destape">
+        </div>
+        <div class="section-block" style="margin-top:12px">
+          <h4>Animación ligera</h4>
+          <p class="small">Decoración animada para la presentación (formas y confetti al completar la evaluación).</p>
+          <div style="height:120px;display:flex;align-items:center;justify-content:center">
+            <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(90deg,#60a5fa,#7c3aed);box-shadow:0 10px 30px rgba(12,74,173,0.12);transform:translateY(0);animation:bounce 2s infinite;"></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Autismo e Inclusión Educativa: video -->
+      <article id="autismo-inclusion" class="card" style="margin-top:14px">
+        <h2>Autismo e Inclusión Educativa: desafíos y oportunidades</h2>
+        <p class="small">Video recomendado para profundizar en prácticas inclusivas y retos en el aula.</p>
+        <div class="yt-card" style="margin-top:10px">
+          <a href="https://youtu.be/w2YKnQQIw7U" target="_blank" rel="noopener" aria-label="Autismo e Inclusión Educativa: desafíos y oportunidades" style="text-decoration:none;color:inherit;display:block">
+            <img src="https://img.youtube.com/vi/w2YKnQQIw7U/hqdefault.jpg" alt="Autismo e Inclusión Educativa" style="width:100%;height:220px;object-fit:cover;display:block;border-radius:8px 8px 0 0">
+            <div class="meta" style="padding:12px">
+              <h4>Autismo e Inclusión Educativa: desafíos y oportunidades</h4>
+              <p class="small">Video: análisis y propuestas para la inclusión en contextos escolares.</p>
+            </div>
+          </a>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Aside -->
+    <aside class="aside" aria-labelledby="aside-title">
+      <div class="card">
+        <h3 id="aside-title">Enlaces de apoyo</h3>
+        <div class="links" id="apoyo-links" style="margin-top:10px">
+          <a href="https://pilartea.org/que-es-el-autismo/" target="_blank" rel="noopener">PilarTEA — ¿Qué es el autismo?</a>
+          <a href="https://centromedicoabc.com/revista-digital/consejos-para-padres-de-un-nino-con-autismo/" target="_blank" rel="noopener">Centro Médico ABC — Consejos para padres</a>
+          <a href="https://www.gaceta.unam.mx/ninos-autistas-ven-el-mundo-de-manera-diferente/" target="_blank" rel="noopener">Gaceta UNAM — Niños autistas ven el mundo</a>
+        </div>
+
+        <div class="section-block" style="margin-top:12px">
+          <h4>Equipo</h4>
+          <p style="font-weight:700;margin:6px 0">Hernandez Martinez Mercedes</p>
+          <p style="font-weight:700;margin:6px 0">Martinez Ramirez Diego Alejandro</p>
+          <p class="small">Materia: Implementa Aplicaciones Web — 5AM PG</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px">
+        <h3>Resumen ejecutivo</h3>
+        <p class="small">Documento para presentar: definiciones, estrategias por tipo, TEA como espectro, áreas de acción, mini‑quiz y recursos audiovisuales.</p>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div>Diseñado para MERCEDES — contenido centrado en Tipos de Aprendizaje y TEA.</div>
+  </footer>
+
+  <div class="badge" aria-hidden="true">Proyecto</div>
+</div>
+
+<script>
+/* Form: save 10-field form to localStorage, basic validation and UI feedback */
+(function(){
+  const form = document.getElementById('registro-form');
+  const resetBtn = document.getElementById('f_reset');
+  const msg = document.getElementById('f_msg');
+
+  function showMessage(text, ok=true){
+    msg.textContent = text;
+    msg.style.color = ok ? 'var(--blue-700)' : 'var(--danger)';
+    setTimeout(()=>{ msg.textContent = ''; }, 4500);
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    // required fields
+    const nombre = document.getElementById('f_nombre').value.trim();
+    const email = document.getElementById('f_email').value.trim();
+    const rol = document.getElementById('f_rol').value;
+    const edad = document.getElementById('f_edad').value;
+    const grado = document.getElementById('f_grado').value.trim();
+    const estilo = document.getElementById('f_estilo').value;
+    const diagnostico = document.getElementById('f_diagnostico').value;
+    const observaciones = document.getElementById('f_observaciones').value.trim();
+    const consent = document.getElementById('f_consent').checked;
+
+    if(!nombre || !email || !rol || !edad || !grado || !estilo || !diagnostico || !observaciones || !consent){
+      showMessage('Por favor completa los campos obligatorios y acepta el consentimiento.', false);
+      return;
+    }
+
+    const data = {
+      nombre,
+      email,
+      rol,
+      edad,
+      grado,
+      escuela: document.getElementById('f_escuela').value.trim(),
+      estilo,
+      diagnostico,
+      apoyos: document.getElementById('f_apoyos').value.trim(),
+      observaciones,
+      ts: Date.now()
+    };
+
+    const KEY = 'pe_registro_10campos_v1';
+    const existing = JSON.parse(localStorage.getItem(KEY) || '[]');
+    existing.push(data);
+    localStorage.setItem(KEY, JSON.stringify(existing));
+
+    showMessage('Registro guardado localmente ✔');
+    form.reset();
+  });
+
+  resetBtn.addEventListener('click', function(){
+    if(confirm('¿Limpiar el formulario?')){
+      form.reset();
+      showMessage('Formulario limpiado.');
+    }
+  });
+})();
+
+/* Quiz: 3 preguntas, trofeo and confetti */
+(function(){
+  const quiz = document.getElementById('quiz');
+  const resultBox = document.getElementById('quiz-result');
+  const trophyWrap = document.getElementById('trophy-wrap');
+  const confetti = document.getElementById('confetti');
+
+  function showTrophy(){
+    trophyWrap.style.display = 'flex';
+    trophyWrap.classList.add('show');
+    confetti.innerHTML = '';
+    const colors = ['#ff4757','#ffb86b','#7bed9f','#70a1ff','#f78fb3'];
+    for(let i=0;i<20;i++){
+      const s = document.createElement('span');
+      s.style.left = (5 + Math.random()*90) + '%';
+      s.style.background = colors[i % colors.length];
+      s.style.animationDelay = (Math.random()*0.4) + 's';
+      s.style.transform = 'translateY(-10px) rotate(' + (Math.random()*360) + 'deg)';
+      confetti.appendChild(s);
+    }
+    confetti.setAttribute('aria-hidden','false');
+    setTimeout(()=>{ confetti.innerHTML=''; confetti.setAttribute('aria-hidden','true'); }, 1800);
+  }
+
+  function hideTrophy(){
+    trophyWrap.style.display = 'none';
+    trophyWrap.classList.remove('show');
+  }
+
+  quiz.addEventListener('submit', function(e){
+    e.preventDefault();
+    const a1 = document.getElementById('q1').value;
+    const a2 = (document.querySelector('input[name="q2"]:checked')||{}).value || '';
+    const a3 = document.getElementById('q3').value;
+
+    let score = 0;
+    if(a1 === 'Visual') score++;
+    if(a2 === 'Role-play') score++;
+    if(a3 === 'Espectro') score++;
+
+    resultBox.style.display = 'block';
+    if(score === 3){
+      resultBox.innerHTML = '<strong>3/3 — Excelente.</strong> Has respondido correctamente.';
+      showTrophy();
+    } else {
+      resultBox.innerHTML = `<strong>${score}/3</strong> — Revisa los conceptos señalados en la página.`;
+      hideTrophy();
+    }
+  });
+})();
+</script>
+</body>
+</html>
